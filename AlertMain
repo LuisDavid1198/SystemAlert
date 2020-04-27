@@ -1,0 +1,39 @@
+using System;
+using Rocket.Core.Logging;
+using Rocket.Core.Plugins;
+using Rocket.Unturned;
+using Rocket.Unturned.Events;
+using Rocket.Unturned.Player;
+using SDG.Unturned;
+using UnityEngine.Networking.PlayerConnection;
+
+namespace SystemAlert
+{
+	public class AlertMain : Rocket.Core.Plugins.RocketPlugin<SystemAlert.SystemAlertConfig>
+	{
+		protected override void Load()
+		{
+			SystemAlert.AlertMain.Instance = this;
+			Rocket.Core.Logging.Logger.Log("Load SystemAlert 1.0.0", global::System.ConsoleColor.Cyan);
+			Rocket.Core.Logging.Logger.Log("Plugin made by LuisxD#6545", global::System.ConsoleColor.Red);
+		}
+
+		public override Rocket.API.Collections.TranslationList DefaultTranslations
+		{
+			get
+			{
+				Rocket.API.Collections.TranslationList translationList = new Rocket.API.Collections.TranslationList();
+				translationList.Add("white_alert", "White alert has been activated, (Taser and holstered weapon)");
+				translationList.Add("red_alert", "The red alert has been activated! , (Curfew, SWAT activated)");
+				translationList.Add("blue_alert", "The blue alert has been activated! , (Submachine gun by police patrol)");
+				translationList.Add("orange_alert", "The orange alert has been activated! , (Gun for Police Patrols)");
+				return translationList;
+			}
+		}
+		protected override void Unload()
+		{
+			Rocket.Core.Logging.Logger.Log("Unload SystemAlert 1.0.0", global::System.ConsoleColor.Green);
+		}
+		public static SystemAlert.AlertMain Instance;
+	}
+}
