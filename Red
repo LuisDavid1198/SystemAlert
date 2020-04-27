@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using Rocket.API;
+using Rocket.Unturned.Player;
+using SDG.Unturned;
+using Rocket.Unturned.Chat;
+using System.Collections;
+
+namespace SystemAlert
+{
+	public class Red : IRocketCommand
+	{
+		public AllowedCaller AllowedCaller => AllowedCaller.Player;
+
+		public string Name => "Red";
+
+		public string Help
+		{
+			get
+			{
+				return "Available Alerts: White/Red/Blue/Orange";
+			}
+		}
+		public string Syntax => string.Empty;
+
+		public List<string> Aliases => new List<string>();
+
+		public List<string> Permissions
+		{
+			get
+			{
+				return new List<string>
+				{
+					"SystemAlert.Red"
+				};
+			}
+		}
+
+		public void Execute(Rocket.API.IRocketPlayer caller, params string[] command)
+		{
+			Rocket.Unturned.Player.UnturnedPlayer unturnedPlayer = (Rocket.Unturned.Player.UnturnedPlayer)caller;
+			SDG.Unturned.EffectManager.sendUIEffect(SystemAlert.AlertMain.Instance.Configuration.Instance.RedAlert, 771, true);
+			UnturnedChat.Say(AlertMain.Instance.Translate("red_alert"), UnityEngine.Color.cyan);
+		}
+	}
+}
