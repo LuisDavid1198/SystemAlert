@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using Rocket.API;
+using Rocket.Unturned.Player;
+using SDG.Unturned;
+using Rocket.Unturned.Chat;
+
+namespace SystemAlert
+{
+	public class White : IRocketCommand
+	{
+		public AllowedCaller AllowedCaller => AllowedCaller.Player;
+
+		public string Name => "White";
+
+		public string Help
+		{
+			get
+			{
+				return "Available Alerts: White/Red/Blue/Orange";
+			}
+		}
+		public string Syntax => string.Empty;
+
+		public List<string> Aliases => new List<string>();
+
+		public List<string> Permissions
+		{
+			get
+			{
+				return new List<string>
+				{
+					"SystemAlert.White "
+				};
+			}
+		}
+
+		public void Execute(Rocket.API.IRocketPlayer caller, params string[] command)
+		{
+			foreach (var client in Provider.clients)
+			{
+				Rocket.Unturned.Player.UnturnedPlayer unturnedPlayer = (Rocket.Unturned.Player.UnturnedPlayer)caller;
+				SDG.Unturned.EffectManager.askEffectClearByID(SystemAlert.AlertMain.Instance.Configuration.Instance.RedAlert, client.playerID.steamID);
+				SDG.Unturned.EffectManager.askEffectClearByID(SystemAlert.AlertMain.Instance.Configuration.Instance.BlueAlert, client.playerID.steamID);
+				SDG.Unturned.EffectManager.askEffectClearByID(SystemAlert.AlertMain.Instance.Configuration.Instance.OrangeAlert, client.playerID.steamID);
+				UnturnedChat.Say(AlertMain.Instance.Translate("white_alert"), UnityEngine.Color.cyan);
+			}
+		}
+	}
+}
