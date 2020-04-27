@@ -1,0 +1,18 @@
+using System;
+using Rocket.API;
+
+namespace SystemAlert
+{
+	public class SystemAlertConfig : Rocket.API.IRocketPluginConfiguration, Rocket.API.IDefaultable
+	{
+		public void LoadDefaults()
+		{
+			this.RedAlert = 771;
+			this.BlueAlert = 769;
+			this.OrangeAlert = 770;
+		}
+		public ushort RedAlert;
+		public ushort BlueAlert;
+		public ushort OrangeAlert;
+	}
+}
